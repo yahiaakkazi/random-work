@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kafka Messages</title>
+</head>
+<body>
+    <div id="messages">
+        <!-- WebSocket messages will be displayed here -->
+    </div>
+
+    <script>
+        var socket = new WebSocket("ws://localhost:8080/ws");
+
+        socket.onopen = function() {
+            console.log("WebSocket connection is open.");
+        };
+
+        socket.onmessage = function(event) {
+            var receivedMessage = event.data;
+
+            var messagesDiv = document.getElementById('messages');
+            var newMessageElement = document.createElement('p');
+            newMessageElement.textContent = receivedMessage;
+            messagesDiv.appendChild(newMessageElement);
+        };
+
+        socket.onclose = function(event) {
+            console.log("WebSocket connection is closed with code: " + event.code);
+        };
+    </script>
+</body>
+</html>
